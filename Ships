@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PirateLibrary
+{
+    public abstract class Ships
+    {
+        private int _health;
+
+        public string Name { get; set; }
+        public int MaxHealth { get; set; }
+        public int Block { get; set; }
+        public int HitBonus { get; set; }
+        public int Health
+       {
+            get {return _health; }
+        set
+        {
+            _health = value <= MaxHealth? value : MaxHealth;
+        }
+       }
+
+        public Ships(String name, int health, int maxHealth, int block, int hitBonus)
+        {
+            MaxHealth = maxHealth;
+            Name = name;
+           Health = health;
+            Block = block;
+            HitBonus = hitBonus;
+        }
+
+        public virtual int CalcBlock()
+        {
+            return Block;
+        }
+        public virtual int CalcHitBonus()
+        {
+            return HitBonus;
+        }
+        public virtual int CalcDamage()
+        {
+            return 0;
+        }
+    }
+}
