@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PirateLibrary;
+
+namespace EnemyLibrary
+{
+    public class BasicShip : EnemyShips
+    {
+        public int DoubleCannon { get; set; }
+
+        public BasicShip(string name, int health, int maxHealth, int block, int hitBonus,
+             int minDamage, int maxDamage, string description, int doubleCannon)
+            : base(name, health, maxHealth, block, hitBonus, minDamage, maxDamage, description)
+        {
+            DoubleCannon = doubleCannon;
+
+            if (DoubleCannon >= 100)
+            {
+                MinDamage += 7;
+                MaxDamage += 14;
+                HitBonus += 4;
+            }
+            else if (DoubleCannon >= 50)
+            {
+                MinDamage += 4;
+                MaxDamage += 8;
+                HitBonus += 2;
+            }
+            else if (DoubleCannon == 0)
+            {
+                Block += 5;
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}\nDouble Cannon Blast: {1}",
+                base.ToString(),
+                DoubleCannon);
+        }
+    }
+}
