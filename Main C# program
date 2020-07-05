@@ -1,0 +1,287 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PirateLibrary;
+using EnemyLibrary;
+using System.Threading;
+
+namespace GameProject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Console.WriteLine("   Press Enter to begain?\n ");
+            string enter = Console.ReadLine();
+
+            Console.Title = "It's a Pirates Life For Me";
+            Console.WriteLine("\n   Weigh Anchor and Hoist the Main Sail! Thar be a Whale of an Adventure at Hand......\n");
+
+            string title = @"
+                             |    |    |                 
+                            )_)  )_)  )_)              
+                           )___))___))___)\            
+                          )____)____)_____)\\
+                        _____|____|____|____\\\__
+              ---------\                   /---------
+                  ^^^^^ ^^^^^^^^^^^^^^^^^^^^^
+                     ^^^^      ^^^^     ^^^    ^^
+                           ^^^^      ^^^ ";
+
+            Console.WriteLine(title);
+
+            Console.Beep(800, 350);
+            Console.Beep(900, 350);
+            Console.Beep(1000, 350);
+            Console.Beep(1100, 350);
+            Console.Beep(1000, 350);
+            Console.Beep(1100, 350);
+            Console.Beep(800, 350);
+            Console.Beep(700, 650);
+           
+           
+
+            Console.WriteLine("   Ye have just found a map to shipwreaks full of treasure and gold. Collect as much gold as ye are able, but " +
+                "\n   beware of other pirates and magical sea creatures. Collect 100,000 gold doubloons and sail off into pirate paradise.\n");
+
+            Console.WriteLine("   What be the name of yer ship name?\n ");
+            string userShip = Console.ReadLine();
+
+            Console.WriteLine("   What be yer God given Name?\n ");
+            string userName = Console.ReadLine();
+
+            Console.WriteLine(userName + " sailing on the mighty " + userShip + "!\n");
+
+            PlayerShip player = new PlayerShip( userName, 400, 400, 10, 5, 10, 25, "Majestic Ship that was said to be built by Poseidon himself.", 5, 5, 5, 0);
+
+            bool exit = false;
+
+            do
+            {
+                Console.WriteLine(GetRoom());
+
+                Kraken k1 = new Kraken(" pA Great Kracken", 200, 200, 15, 5, 10, 30, "Mythical creature from the deepest trenches of the ocean", 75);
+                Kraken k2 = new Kraken(" A Great Kracken", 200, 200, 15, 5, 10, 30, "Mythical creature from the deepest trenches of the ocean", 75);
+                BasicShip b1 = new BasicShip(" Pirate Fenton 'Liar' Ulrik", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b2 = new BasicShip(" Pirate Clark 'No Cash' Cromwell", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b3 = new BasicShip(" Pirate Black 'Gloomy' Hartford", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b4 = new BasicShip(" Pirate Dodge 'Squealer' Anderton", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b5 = new BasicShip(" Pirate Hodgson 'Crippled' Cooper", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b6 = new BasicShip(" Pirate Holden 'Treason' Keetes", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b7 = new BasicShip(" Pirate Mollie 'Roaring' Mildenhall", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b8 = new BasicShip(" Pirate Almira 'Vamp' Clifton", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b9 = new BasicShip(" Pirate Kim 'Two-Finger' Kaiser", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BasicShip b10 = new BasicShip(" Pirate Truesdale 'No Smile' Armstead", 100, 100, 15, 5, 5, 20, "Basic pirate ship", 25);
+                BossShip B1 = new BossShip(" Captain Wheelwright 'Iron Fists' Tack", 150, 150, 15, 5, 7, 25, "Boss Pirate ship", 10, 10);
+                BossShip B2 = new BossShip(" Captain Powell 'The Kraken' Heinrik", 150, 150, 15, 5, 7, 25, "Boss Pirate ship", 10, 10);
+                BossShip B3 = new BossShip(" Captain Ramsden 'Confidence' Butler", 150, 150, 15, 5, 7, 25, "Boss Pirate ship", 10, 10);
+                BossShip B4 = new BossShip(" Captain Magdalene 'Ruthless' Obsidian", 150, 150, 15, 5, 7, 25, "Boss Pirate ship", 10, 10);
+                BossShip B5 = new BossShip(" Captain Rosetta 'Fishy' Tempest", 150, 150, 15, 5, 7, 25, "Boss Pirate ship", 10, 10);
+
+                EnemyShips[] enemies =
+                {
+                    k1, k2, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, B1, B2, B3, B4, B5
+                };
+
+                EnemyShips enemy = enemies[new Random().Next(enemies.Length)];
+
+                Console.WriteLine("   You've found the shipwreck but" + enemy.Name + " is lurking around and needs to be destroyed!\n");
+
+                bool reload = false;
+                do
+                {
+                    Console.WriteLine("\n   What be yer next move:\n\n" +
+                        "   P)lunder\n" +
+                        "   I)mprove me ship \n" +
+                        "   R)etreat\n" +
+                        "   A)vast, Ye Stats \n" +
+                        "   T)har be the enemy Stats \n" +
+                        "   E)scape\n");
+                    ConsoleKey userChoice = Console.ReadKey(true).Key;
+
+                    Console.Clear();
+                    //9)Build out switch for UserChoice
+                    switch (userChoice)
+                    {
+                        case ConsoleKey.P:
+                            //9) TODO If player fights
+                            Combat.DoBattle(player, enemy);
+                            if (enemy.Health <= 0)
+                            {
+                                Console.WriteLine("   You killed {0}!\n",
+                                         enemy.Name);
+                                reload = true;
+                                player.Gold += 7000m;
+                                player.Health += 50;
+                                k1.Health += 5;
+                                k1.Health += 5;
+                                b1.Health += 5;
+                                b2.Health += 5;
+                                b3.Health += 5;
+                                b4.Health += 5;
+                                b5.Health += 5;
+                                b6.Health += 5;
+                                b7.Health += 5;
+                                b8.Health += 5;
+                                b9.Health += 5;
+                                b10.Health += 5;
+                                B1.Health += 5;
+                                B2.Health += 5;
+                                B3.Health += 5;
+                                B4.Health += 5;
+                                B5.Health += 5;
+
+                            }
+                            break;
+                        case ConsoleKey.I:
+                            do
+                            {
+                                Console.WriteLine("\n   What do you want to upgrade: \n" +
+                                    "   G)ain Health: $5,000\n" +
+                                    "   O)utfit stronger Haul: $25,000\n" +
+                                    "   L)oot in Chest\n" +
+                                    "   D)amage Increase: $10,000\n");
+                                ConsoleKey userChoice2 = Console.ReadKey(true).Key;
+
+                                switch (userChoice2)
+                                {
+                                    case ConsoleKey.G:
+                                        if (player.Gold <= 4999)
+                                        {
+                                            reload = false;
+                                        }
+                                        else if (player.Gold >= 5000)
+                                        {
+                                            player.Health += 100;
+                                            player.MaxHealth += 100;
+                                            player.Gold -= 5000;
+                                        }
+                                        break;
+                                    case ConsoleKey.O:
+                                        if (player.Gold <= 24999)
+                                        {
+                                            reload = false;
+                                        }
+                                        else if (player.Gold >= 25000)
+                                        {
+                                            player.Block += 1;
+                                            player.Gold -= 25000;
+                                        }
+                                        break;
+                                    case ConsoleKey.L:
+                                        Console.WriteLine(" " + player.Gold + "  Gold");
+                                        break;
+                                    case ConsoleKey.D:
+                                        if (player.Gold <= 9999)
+                                        {
+                                            reload = false;
+                                        }
+                                        else if (player.Gold >= 10000)
+                                        {
+                                            player.MinDamage += 10;
+                                            player.MaxDamage += 10;
+                                            player.Gold -= 10000;
+                                        }
+                                        break;
+                                }
+                            } while (reload);
+                            break;
+                        case ConsoleKey.R:
+                            Console.WriteLine("\n   You Scallywag!");
+                            int blockedIn = new Random().Next(1);
+                            if (blockedIn == 1)
+                            {
+                                reload = true;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\n   Blockade Set, Stay and fight!");//blockade set
+                            }
+                            reload = true;
+                            Combat.DoAttack(enemy, player);
+                            Console.WriteLine("\n   You Shall not pass");
+                            break;
+                        case ConsoleKey.A:
+                            Console.WriteLine(player);
+                            break;
+                        case ConsoleKey.T:
+                            Console.WriteLine(enemy);
+                            break;
+                        case ConsoleKey.E:
+                            Console.WriteLine("\n   Walk the plank with this scurvy dog...");
+                            exit = true;
+                            break;
+                        default:
+                            Console.WriteLine("\n   Tis not be available. Give 'er one more shot lass.");
+                            break;
+                    }
+                    if (player.Gold >= 100000)
+                    {
+                        reload = false;
+                        Console.WriteLine("\n   You won with a Loot total of " + player.Gold);
+                        exit = true;
+                    }
+                    else if (player.Health <= 1)
+                    {
+                        Console.Beep(660, 350);
+                        Thread.Sleep(800);
+                        Console.Beep(660, 350);
+                        Thread.Sleep(800);
+                        Console.Beep(660, 350);
+                        Thread.Sleep(800);
+                        Console.Beep(800, 1000);
+                        Console.WriteLine("   You Died!\n",
+                        //Enemy.Name);
+                        exit = true);
+                    }
+                   
+                } while (!exit && !reload);
+            } while (!exit);
+            Console.WriteLine("   Thanks For Playing\n");
+            Console.Beep(1300, 350);
+            Console.Beep(900, 350);
+            Console.Beep(1200, 350);
+            Console.Beep(1100, 350);
+            Console.Beep(1000, 350);
+            string title2 = @"
+                         ███        ▄█    █▄       ▄████████         ▄████████ ███▄▄▄▄   ████████▄  
+                     ▀█████████▄   ███    ███     ███    ███        ███    ███ ███▀▀▀██▄ ███   ▀███ 
+                        ▀███▀▀██   ███    ███     ███    █▀         ███    █▀  ███   ███ ███    ███ 
+                         ███   ▀  ▄███▄▄▄▄███▄▄  ▄███▄▄▄           ▄███▄▄▄     ███   ███ ███    ███ 
+                         ███     ▀▀███▀▀▀▀███▀  ▀▀███▀▀▀          ▀▀███▀▀▀     ███   ███ ███    ███ 
+                         ███       ███    ███     ███    █▄         ███    █▄  ███   ███ ███    ███ 
+                         ███       ███    ███     ███    ███        ███    ███ ███   ███ ███   ▄███ 
+                        ▄████▀     ███    █▀      ██████████        ██████████  ▀█   █▀  ████████▀  
+                                                                               
+                                                                            ";
+            Console.WriteLine(title2);
+        }
+        private static string GetRoom()
+        {
+            string[] highSeas =
+            {
+                "     In the heartless waters of a dim, joyless ocean lies the wreckage of the Nymphe, a ship once part of a large armada of ships hundreds of years ago. She has stood the test of time quite well, but bigger and bigger holes do start to appear. The cold waters help preserve what remains of her, but she's now the home of a wide range of aquatic creatures big and small. Her past or true purpose is irrelevant to the new inhabitants. The new inhabitants will guard their homes against new arrivals as well as try to claim more for their own when given the chance.\n",
+                "     In the abysmal waters of a morose, ominous sea lies what remains of the Nyaden, a ship potentially lost during a fight with pirates hundreds of years ago. She's in excellent shape, that is if you look passed the big gap that caused her demise. She belongs to the salty waters now and they're far from kind, but various fish keep her company even if to them she's merely a safe harbor for their young. They often change positions as they change their minds on which spot is best. They're new inhabitants of a home lost to the tides and time.\n",
+                "     In the deep waters of a somber, cheerless sea lies what remains of the Moselle, a ship once the proud possession of a rich merchant hundreds of years ago. She's in a respectable condition, with the exception of the large hole in her port-side hull. The barren depths aid in her preservation, but there are creatures who enjoy the vast opportunities she has to offer them. She seems to have a calming effect on them. They're a new crew ready to take her on new adventures, but she won't move an inch.\n",
+                "     In the sunken depths of a somber, mournful ocean lies the wreck of the Medora, a ship who once belonged to pirates hundreds of years ago. She's more broken than whole; various pieces have come loose and more will soon follow. She's no longer home to a crew, but a plethora of lifeforms use her for housing, hunting grounds and more. She's the perfect home to grow in and around. They all seem content enough to share this abandoned vessel as a group like a family of sorts.\n",
+                "     In the nethermost waters of a dark, cheerless ocean lies what remains of the Celebes, a ship who was once the prized possession of an up-and-coming trader hundreds of years ago. She's in a rough shape; rust is everywhere and broken windows are more numerous than non-broken ones. It's a quiet, watery grave, but there are creatures who enjoy the vast opportunities she has to offer them. They often change positions as they change their minds on which spot is best. She's become prime real estate and many are eager to claim it all for themselves at any given chance.\n",
+                "     In the warm shallows of a serene ocean lies what remains of the Starling, a ship once part of a large armada of ships hundreds of years ago. She's obviously seen better days, but still in decent condition, although the wood is starting to suffer from rot. She's dead silent and eerily calm, but various fish keep her company even if to them she's merely a safe harbor for their young. They're usually out in the open and easily spotted. Each one of them is in no rush to claim the entire ship as their own.\n",
+                "     In the relative shallows of a mellow sea lies what remains of the Enchantress, a ship who may have been sunk on purpose hundreds of years ago. She's in awful condition; she's in two main pieces and there's far more damage than that. She seems entirely abandoned and lifeless, but large, aquatic beings search for food around her every now and then, while small creatures use her as shelter. They're a calm bunch in the safety of her waters. She's become a prime location for those who have found her, and they're not willing to share with new arrivals.\n",
+                "     In the heartless waters of a dim, cheerless sea lies the wreckage of the Deloraine, a ship who may have been sunk on purpose hundreds of years ago. She's not in the best of shapes to say the least; there are giant cracks and broken beams are everywhere. She'll continue to deteriorate over time, but passing creatures visit her once in a while. They're a wild and excited bunch. She's become prime real estate and many are eager to claim it all for themselves at any given chance.\n",
+                "     In the ruthless depths of a dark, joyless sea lies the wreck of the Ausonia, a ship once the proud possession of a rich merchant hundreds of years ago. She's in good shape all things considered, except for the large crack in her starboard hull. It's a quiet, watery grave, but large, aquatic beings search for food around her every now and then, while small creatures use her as shelter. They're a calm bunch in the safety of her waters. They all seem content enough to share this abandoned vessel as a group like a family of sorts.\n",
+                "     In the unforgiving depths of a dim, cheerless ocean lies the wreck of the cleopatra, a ship who once belonged to pirates hundreds of years ago. She's falling into more and more pieces; pieces are missing and the top deck has collapsed. Time will continue to claim her piece by piece, but a few large, aquatic creatures see her as their new home. It can be difficult to spot them all as they hide at the slightest movement. They're all eager to take advantage of every opportunity, and wish to claim all of what she has to offer for themselves.\n",
+                "     In the sunken depths of a dark, crabby sea lies what remains of the Good Fortune, a ship without any known records dating back hundreds of years ago. She's not in the best of shapes to say the least; rust is everywhere and broken windows are more numerous than non-broken ones. She'll continue to deteriorate over time, but there are creatures who enjoy the vast opportunities she has to offer them. They're a wild and excited bunch. They're new inhabitants of a home lost to the tides and time.\n",
+                "     In the abysmal waters of a lightless, icy ocean lies the wreck of the Adelaide, a ship who, based on what we know today, shouldn't have been here hundreds of years ago. She's obviously seen better days, but still in decent condition, but the damage already done continues to expand as it rots. Time will continue to claim her piece by piece, but she's in the company of various aquatic beings who see her as their home now. They often change positions as they change their minds on which spot is best. She's become prime real estate and many are eager to claim it all for themselves at any given chance.\n",
+                "     In the ruthless depths of a lightless, cheerless ocean lies the wreck of the Nyaden, a ship without any known records dating back hundreds of years ago. She's in a respectable condition, with the exception of a couple of holes here and there. She's dead silent and eerily calm, but various fish keep her company even if to them she's merely a safe harbor for their young. Her past or true purpose is irrelevant to the new inhabitants. They've given her a new purpose without even meaning to, which adds a certain beauty to her fate.\n",
+                "     In the nethermost waters of a sullen, cheerless sea lies the wreck of the Moselle, a ship once part of a larger fleet of navy ships hundreds of years ago. She's in excellent shape, with the exception of a couple of holes here and there. She belongs to the salty waters now and they're far from kind, but , for better or worse, a wide range of corals adorn her. In turn, many small creatures live among and around the corals. They're a calm bunch in the safety of her waters. Each one of them is in no rush to claim the entire ship as their own.\n",
+                "     In the superficial waters of a serene ocean lies the wreckage of the Argosy, a ship once part of a larger fleet of navy ships hundreds of years ago. She's in a slightly roughened condition, but bigger and bigger holes do start to appear. It's a quiet, watery grave, but a few animals keep her company and use her as a welcome shelter. It can be difficult to spot them all as they hide at the slightest movement. They all seem content enough to share this abandoned vessel as a group like a family of sorts.\n",
+                "     In the relative shallows of a placid sea lies the wreckage of the Cordelia, a ship once the proud possession of a rich merchant hundreds of years ago. She's in a fairly good shape, with the exception of a couple of holes here and there. She's no longer home to a crew, but large, aquatic beings search for food around her every now and then, while small creatures use her as shelter. She seems to have a calming effect on them. They've given her a new purpose without even meaning to, which adds a certain beauty to her fate.\n",
+            };
+
+            return highSeas[new Random().Next(highSeas.Length)];
+        }
+    }
+}
