@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace PirateLibrary
+{
+    public class Combat
+    {
+        public static void DoAttack(Ships attacker, Ships defender)
+        {
+            //random dice roll
+            int diceRoll = new Random().Next(1, 21);
+            System.Threading.Thread.Sleep(100);
+            if (diceRoll + attacker.CalcHitBonus() >= defender.CalcBlock())
+            {
+                int damageDealt = attacker.CalcDamage();
+
+                defender.Health -= damageDealt;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\n    {0} hit{1} for {2} damage!\n",
+                    attacker.Name,
+                    defender.Name,
+                    damageDealt);
+                Console.ResetColor();
+            }
+            else
+            {
+                Console.WriteLine("\n    {0} Missed!\n", attacker.Name);
+            }
+        }
+
+        public static void DoBattle(PlayerShip player, EnemyShips enemy)
+        {
+            DoAttack(player, enemy);
+
+            if (enemy.Health > 0)
+            {
+                DoAttack(enemy, player);
+            }
+        }
+    }
+}
