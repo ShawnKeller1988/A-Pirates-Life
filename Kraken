@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using PirateLibrary;
+
+namespace EnemyLibrary
+{
+    public class Kraken : EnemyShips
+    {
+        public int ShipCollapse { get; set; }
+
+        public Kraken(string name, int health, int maxHealth, int block, int hitBonus,
+             int minDamage, int maxDamage, string description, int shipCollaps)
+            : base(name, health, maxHealth, block, hitBonus, minDamage, maxDamage, description)
+        {
+            ShipCollapse = shipCollaps;
+
+            if (ShipCollapse >= 100)
+            {
+                MinDamage += 50;
+                MaxDamage += 75;
+                HitBonus += 25;
+            }
+            else if (ShipCollapse >= 50)
+            {
+                MinDamage += 25;
+                MaxDamage += 50;
+                HitBonus += 12;
+            }
+            else if (ShipCollapse == 0)
+            {
+                Health += 50;
+            }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}\nKracken Squeeze: {1}",
+                base.ToString(),
+                ShipCollapse);
+        }
+    }
+}
